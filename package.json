@@ -1,8 +1,8 @@
 {
   "name": "@woys/help-desk",
   "version": "1.0.0",
-  "description": "this is an help desk for customers",
-  "main": "index.js",
+  "description": "This is a help desk component for customers",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,13 +10,22 @@
     "type": "git",
     "url": "git+https://github.com/fauzankvr/help-desk.git"
   },
-  "keywords": [
-    "help-desk"
-  ],
+  "keywords": ["help-desk"],
   "author": "fauzan",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/fauzankvr/help-desk/issues"
   },
-  "homepage": "https://github.com/fauzankvr/help-desk#readme"
+  "homepage": "https://github.com/fauzankvr/help-desk#readme",
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.13",
+    "postcss": "^8.5.6",
+    "autoprefixer": "^10.4.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }
