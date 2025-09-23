@@ -1,0 +1,22 @@
+{
+  "name": "@woys/help-desk",
+  "version": "1.0.0",
+  "description": "this is an help desk for customers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fauzankvr/help-desk.git"
+  },
+  "keywords": [
+    "help-desk"
+  ],
+  "author": "fauzan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fauzankvr/help-desk/issues"
+  },
+  "homepage": "https://github.com/fauzankvr/help-desk#readme"
+}
