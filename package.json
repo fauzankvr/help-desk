@@ -2,8 +2,14 @@
   "name": "@woys/help-desk",
   "version": "1.0.0",
   "description": "A React + Tailwind Help Desk component",
-  "main": "dist/index.mjs", 
-  "module": "dist/index.mjs" ,
+  "main": "dist/index.cjs.js", 
+  "module": "dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
   "scripts": {
     "build": "vite build",
     "prepare": "npm run build",
