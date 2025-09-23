@@ -18,9 +18,9 @@
   },
   "homepage": "https://github.com/fauzankvr/help-desk#readme",
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
-  },
+  "react": "^18 || ^19",
+  "react-dom": "^18 || ^19"
+},
   "devDependencies": {
     "tailwindcss": "^4.1.13",
     "postcss": "^8.5.6",
