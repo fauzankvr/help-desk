@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 export default function HelpDesk() {
   const [open, setOpen] = useState(false);
@@ -6,16 +6,18 @@ export default function HelpDesk() {
     { from: "bot", text: "👋 Hi! How can I help you today?" },
   ]);
   const inputRef = useRef();
+  const messagesEndRef = useRef();
+
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   // Send message
   const sendMessage = () => {
     const text = inputRef.current.value.trim();
     if (!text) return;
 
-    // Add user message
-    setMessages((prev) => [...prev, { from: "user", text }]);
-
-    // Add bot reply
     setMessages((prev) => [
       ...prev,
       { from: "user", text },
@@ -25,7 +27,7 @@ export default function HelpDesk() {
     inputRef.current.value = "";
   };
 
-  // Bot reply logic (demo)
+  // Demo bot reply logic
   const getBotReply = (q) => {
     q = q.toLowerCase();
     if (q.includes("hello")) return "Hello! 👋 How can I assist?";
@@ -47,8 +49,14 @@ export default function HelpDesk() {
 
       {/* Modal */}
       {open && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-          <div className="bg-white rounded-lg w-96 shadow-lg flex flex-col max-h-[80vh]">
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="bg-white rounded-lg w-96 shadow-lg flex flex-col max-h-[80vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Header */}
             <div className="flex justify-between items-center p-3 border-b">
               <h2 className="font-bold text-lg">Help Desk</h2>
@@ -74,6 +82,7 @@ export default function HelpDesk() {
                   {msg.text}
                 </div>
               ))}
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}

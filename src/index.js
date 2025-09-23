@@ -1,1 +1,2 @@
-export { default as HelpDesk } from "./HelpDesk";
+import HelpDesk from "./HelpDesk";
+export default HelpDesk; // ✅ default export
