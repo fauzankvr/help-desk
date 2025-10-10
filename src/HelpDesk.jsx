@@ -4,6 +4,8 @@ import { ChatHeader } from "./components/ChatHeader";
 import { MessageList } from "./components/MessageList";
 import { MessageInput } from "./components/MessageInput";
 import { ChatIcon } from "./components/icons";
+import axios from "axios";
+import io from "socket.io-client"
 
 export default function HelpDesk({ userId, organizationId }) {
   const [open, setOpen] = useState(false);
