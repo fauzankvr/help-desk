@@ -1,7 +1,6 @@
 import React from "react";
-import { PlusIcon, SendIcon } from "./Icons";
 
-export function MessageInput({
+export const MessageInput = ({
   inputRef,
   sendMessage,
   handleImageChange,
@@ -10,65 +9,102 @@ export function MessageInput({
   showQuickReplies,
   showInput,
   quickReplies,
-}) {
-  return (
-    <div className="p-3 bg-white rounded-b-xl">
-      {/* Quick Reply Buttons */}
-      {showQuickReplies && (
-        <div className="flex flex-wrap gap-2 mb-3">
-          {quickReplies.map((text, index) => (
-            <button
-              key={index}
-              onClick={() => sendQuickMessage(text)}
-              className="px-3 py-1 text-sm bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors"
-              aria-label={`Send ${text} message`}
-            >
-              {text}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Input Area (Text Input, Image Upload, Send Button) */}
-      {showInput && (
-        <div className="flex items-center bg-gray-100 rounded-full">
-          {/* Hidden File Input for Images */}
-          <input
-            type="file"
-            ref={imageInputRef}
-            onChange={handleImageChange}
-            accept="image/*"
-            className="hidden"
-            aria-label="Upload image"
-          />
-
-          {/* Plus Button to Trigger File Input */}
+  uploadedImageKey,
+  clearImage,
+}) => (
+  <div className="p-3 bg-white border-t border-gray-200">
+    {showQuickReplies && (
+      <div className="flex flex-wrap gap-2 mb-2">
+        {quickReplies.map((reply, index) => (
           <button
-            onClick={() => imageInputRef.current.click()}
-            className="p-3 text-gray-500 rounded-full hover:bg-gray-200 transition-colors"
-            aria-label="Add an image"
+            key={index}
+            onClick={() => sendQuickMessage(reply)}
+            className="px-3 py-1 text-sm bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition-colors"
           >
-            <PlusIcon />
+            {reply}
           </button>
-
-          {/* Text Input */}
-          <input
-            ref={inputRef}
-            placeholder="Type your message..."
-            className="flex-1 p-3 bg-transparent rounded-b-full outline-none text-sm text-gray-700"
-            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-          />
-
-          {/* Send Button */}
-          <button
-            onClick={sendMessage}
-            className="bg-green-600 text-white p-3 rounded-full hover:bg-green-700 transition-colors disabled:bg-green-300"
-            aria-label="Send message"
+        ))}
+      </div>
+    )}
+    {showInput && (
+      <div className="relative flex items-start gap-2">
+        <button
+          onClick={() => imageInputRef.current?.click()}
+          className="p-1 rounded-full text-green-500 hover:bg-green-100 transition-colors"
+          aria-label="Upload image"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            <SendIcon />
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" y1="3" x2="12" y2="15" />
+          </svg>
+        </button>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="hidden"
+          ref={imageInputRef}
+          aria-hidden="true"
+        />
+        <textarea
+          ref={inputRef}
+          onChange={(e) => (inputRef.current.value = e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              sendMessage();
+            }
+          }}
+          placeholder="Type a message..."
+          className="flex-1 pl-3 pr-10 py-2 text-sm border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition resize-none min-h-[40px] max-h-[120px]"
+          aria-label="Type a message"
+        />
+        <button
+          onClick={sendMessage}
+          className="absolute right-2 top-2 p-1 rounded-full text-green-500 hover:bg-green-100 transition-colors"
+          aria-label="Send message"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m22 2-7 20-4-9-9-4Z" />
+            <path d="M22 2 11 13" />
+          </svg>
+        </button>
+      </div>
+    )}
+    {uploadedImageKey && (
+      <div className="mt-2 flex items-center gap-2">
+        <span className="text-xs text-gray-600">
+          Image uploaded: {uploadedImageKey.split("/").pop()}
+        </span>
+        <button
+          onClick={clearImage}
+          className="text-xs text-red-500 hover:text-red-600"
+          aria-label="Remove uploaded image"
+        >
+          Remove
+        </button>
+      </div>
+    )}
+  </div>
+);
