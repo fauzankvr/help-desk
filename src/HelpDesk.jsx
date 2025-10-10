@@ -5,7 +5,7 @@ import { MessageList } from "./components/MessageList";
 import { MessageInput } from "./components/MessageInput";
 import { ChatIcon } from "./components/icons";
 
-export function HelpDesk({ userId, organizationId }) {
+export default function HelpDesk({ userId, organizationId }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [showQuickReplies, setShowQuickReplies] = useState(false);
